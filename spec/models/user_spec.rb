@@ -6,12 +6,12 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
-    context "新規登録できるとき" do
+    context '新規登録できるとき' do
       it 'nicknameなどのすべてのデータが存在すれば登録できる' do
         expect(@user).to be_valid
       end
     end
-    context "新規登録できないとき" do
+    context '新規登録できないとき' do
       it 'nicknameが空では登録できない' do
         @user.nickname = ''
         @user.valid?
@@ -33,10 +33,10 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'passwordは、半角英数字混合でないと登録できない' do
-        @user.password = "000000"
-        @user.password_confirmation = "000000"
+        @user.password = '000000'
+        @user.password_confirmation = '000000'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it '重複したemailが存在する場合は登録できない' do
         @user.save
@@ -88,22 +88,22 @@ RSpec.describe User, type: :model do
     it 'last_nameが全角文字でないと登録できない' do
       @user.last_name = 'aaa'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name is invalid")
+      expect(@user.errors.full_messages).to include('Last name is invalid')
     end
     it 'last_name_kanaが全角カナでないと登録できない' do
       @user.last_name_kana = '山田'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name kana is invalid")
+      expect(@user.errors.full_messages).to include('Last name kana is invalid')
     end
     it 'first_nameが全角文字でないと登録できない' do
       @user.first_name = 'aaa'
       @user.valid?
-      expect(@user.errors.full_messages).to include("First name is invalid")
+      expect(@user.errors.full_messages).to include('First name is invalid')
     end
     it 'first_name_kanaが全角カナでないと登録できない' do
       @user.first_name_kana = '太郎'
       @user.valid?
-      expect(@user.errors.full_messages).to include("First name kana is invalid")
+      expect(@user.errors.full_messages).to include('First name kana is invalid')
     end
   end
 end
