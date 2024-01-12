@@ -2,19 +2,11 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :sales_status
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :shipping_fee_status
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :prefecture
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :scheduled_delivery
+  belongs_to :category, :sales_status, :shipping_fee_status, :prefecture, :scheduled_delivery
 
   validates :name, presence: true
   validates :info, presence: true
-  validates :price, presence: true, numericality: { greater_than: 299, less_than: 10_000_000 }, format: { with: /\A[0-9]+\z/ }
+  validates :price, presence: true, numericality: { greater_than: 299, less_than: 10_000_000 }, only_integer: true
   validates :image, presence: true
   validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :sales_status_id, numericality: { other_than: 1, message: "can't be blank" }
