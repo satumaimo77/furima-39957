@@ -24,9 +24,9 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
 
-    unless current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    return if current_user.id == @item.user_id
+
+    redirect_to root_path
   end
 
   def update
@@ -46,8 +46,8 @@ class ItemsController < ApplicationController
   end
 
   def move_to_sign_in
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
+    return if user_signed_in?
+
+    redirect_to new_user_session_path
   end
 end
