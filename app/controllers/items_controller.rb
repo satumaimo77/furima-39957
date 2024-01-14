@@ -1,13 +1,11 @@
 class ItemsController < ApplicationController
+  before_action :move_to_sign_in, only: [:new, :edit]
   def index
     @items = Item.includes(:user).order('created_at DESC')
   end
 
   def new
     @item = Item.new
-    return if user_signed_in?
-
-    redirect_to new_user_session_path
   end
 
   def create
@@ -23,10 +21,33 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+
+    unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item.id)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def item_params
     params.require(:item).permit(:name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :prefecture_id,
                                  :scheduled_delivery_id, :price, :image).merge(user_id: current_user.id)
+  end
+
+  def move_to_sign_in
+    unless user_signed_in?
+      redirect_to new_user_session_path
+    end
   end
 end
