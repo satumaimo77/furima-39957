@@ -2,9 +2,6 @@ class OrderBuyerRecord
   include ActiveModel::Model
   attr_accessor :postal_code, :prefecture_id, :city, :addresses, :building, :phone_number, :user_id, :item_id
 
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :prefecture
-
   with_options presence: true do
     validates :user_id
     validates :item_id
