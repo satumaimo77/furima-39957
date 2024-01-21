@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_21_114136) do
   end
 
   create_table "buyer_records", charset: "utf8mb4", force: :cascade do |t|
-    t.string "postal_cade", default: "", null: false
+    t.string "postal_code", default: "", null: false
     t.integer "prefecture_id", null: false
     t.string "city", default: "", null: false
     t.string "addresses", default: "", null: false
