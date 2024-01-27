@@ -25,6 +25,16 @@ RSpec.describe OrderBuyerRecord, type: :model do
         @order_buyer_record.valid?
         expect(@order_buyer_record.errors.full_messages).to include("Token can't be blank")
       end
+      it 'user_idが空では登録できないこと' do
+        @order_buyer_record.user_id = nil
+        @order_buyer_record.valid?
+        expect(@order_buyer_record.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では登録できないこと' do
+        @order_buyer_record.item_id = nil
+        @order_buyer_record.valid?
+        expect(@order_buyer_record.errors.full_messages).to include("Item can't be blank")
+      end
       it 'postal_codeが空だと保存できないこと' do
         @order_buyer_record.postal_code = ''
         @order_buyer_record.valid?
