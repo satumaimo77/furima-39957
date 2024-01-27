@@ -20,7 +20,7 @@ RSpec.describe OrderBuyerRecord, type: :model do
     end
 
     context '内容に問題がある場合' do
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @order_buyer_record.token = nil
         @order_buyer_record.valid?
         expect(@order_buyer_record.errors.full_messages).to include("Token can't be blank")
