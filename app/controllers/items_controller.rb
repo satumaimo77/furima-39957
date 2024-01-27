@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    return if current_user.id == @item.user_id
+    return unless current_user.id != @item.user_id || Order.exists?(item_id: @item.id)
 
     redirect_to root_path
   end
