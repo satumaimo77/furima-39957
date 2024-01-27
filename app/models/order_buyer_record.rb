@@ -14,7 +14,7 @@ class OrderBuyerRecord
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
 
   def save
-    order = Order.create(user_id:, item_id:, token:)
+    order = Order.create(user_id:, item_id:)
     BuyerRecord.create(postal_code:, prefecture_id:, city:, addresses:,
                        building:, phone_number:, order_id: order.id)
   end
