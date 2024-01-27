@@ -1,14 +1,13 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create]
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-    @item = Item.find(params[:item_id])
     return_top_page
     @order_buyer_record = OrderBuyerRecord.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_buyer_record = OrderBuyerRecord.new(order_params)
     if @order_buyer_record.valid?
       pay_item
@@ -41,5 +40,9 @@ class OrdersController < ApplicationController
     return unless current_user.id == @item.user_id || Order.exists?(item_id: @item.id)
 
     redirect_to root_path
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end
