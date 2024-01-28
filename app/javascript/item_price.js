@@ -5,10 +5,11 @@ function itemPrice (){
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
     const tax = Math.floor(inputValue * 0.1)
-    const profit = Number(inputValue) + Number(tax)
+    const profit = Number(inputValue) - Number(tax)
     addTaxDom.innerHTML = tax
     profitDom.innerHTML = profit
   })
  };
  
  window.addEventListener('turbo:load', itemPrice);
+ window.addEventListener("turbo:render", itemPrice);
